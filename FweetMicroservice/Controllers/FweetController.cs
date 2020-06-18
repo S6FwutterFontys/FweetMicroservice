@@ -18,34 +18,50 @@ namespace FweetMicroservice.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateFweet(Fweet fweet)
+        public async Task<IActionResult> CreateFweet(CreateFweetModel fweet)
         {
-            var fweetIn = new Fweet()
-            {
-                FweetId = new Guid(),
-                UserId = fweet.UserId,
-                FweetMessage = fweet.FweetMessage,
-                Timestamp = DateTime.Now.ToFileTime()
-            };
-
             try
             {
-                await _service.PlaceFweet(fweetIn);
+                return Ok(await _service.PlaceFweet(fweet));
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            return Ok(fweetIn);
+        }
+        
+        [HttpGet ( "User/{userId}")]
+        public async Task<IActionResult> GetFweetsByUserId(Guid userId)
+        {
+            try
+            {
+                return Ok(await _service.GetFweetsByUserId(userId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        [HttpGet]
+        [HttpGet ( "{fweetId}")]
         public async Task<IActionResult> GetFweet(Guid fweetId)
         {
             try
             {
-                var fweet = await _service.GetFweet(fweetId);
-                return Ok(fweet);
+                return Ok(await _service.GetFweet(fweetId));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [HttpGet ("")]
+        public async Task<IActionResult> GetAllFweets()
+        {
+            try
+            {
+                return Ok( await _service.GetAllFweets());
             }
             catch (Exception e)
             {
@@ -76,8 +92,7 @@ namespace FweetMicroservice.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                return BadRequest(e.Message);
             }
         }
     }

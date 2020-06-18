@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fweet-microservice
+  namespace: development
+  labels:
+    app: fweet-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fweet-microservice
+  template:
+    metadata:
+      labels:
+        app: fweet-microservice
+    spec:
+      containers:
+        - name: fweet-microservice
+          image: joeriberman/fweet-microservice
+          imagePullPolicy: IfNotPresent
+          ports: 
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi

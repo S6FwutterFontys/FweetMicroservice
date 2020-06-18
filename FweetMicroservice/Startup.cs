@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FweetMicroservice.DatastoreSettings;
+using FweetMicroservice.Repositories;
 using FweetMicroservice.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace FweetMicroservice
         {
             services.AddCors();
             services.AddTransient<IFweetService, FweetService>();
+            services.AddTransient<IFweetRepository, FweetRepository>();
             
             services.Configure<DatabaseSettings>(
                 Configuration.GetSection(nameof(DatabaseSettings)));

@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 using FweetMicroservice.Entities;
 using FweetMicroservice.Models;
 
-namespace FweetMicroservice.Services
+namespace FweetMicroservice.Repositories
 {
-    public interface IFweetService
+    public interface IFweetRepository
     {
         Task<Fweet> GetFweet(Guid fweetId);
-        Task<List<Fweet>> GetFweetsByUserId(Guid id);
         Task<List<Fweet>> GetAllFweets();
+        Task<List<Fweet>> GetFweetsByUserId(Guid id);
         
-        Task<Fweet> PlaceFweet(CreateFweetModel newFweet);
-        Task DeleteFweet(Guid userId, Guid fweetId);
-        Task<Fweet> UpdateFweet(Guid fweetId, UpdateFweetModdel updatedFweet);
+        Task<Fweet> PlaceFweet(Fweet newFweet);
+        Task DeleteFweet(Guid fweetId);
+        Task<Fweet> UpdateFweet(Guid fweetId, Fweet updatedFweet);
         
         Task<Fweet> LikeFweet(LikeFweetModel fweet);
         Task<Fweet> RemoveLikeFweet(LikeFweetModel fweet);

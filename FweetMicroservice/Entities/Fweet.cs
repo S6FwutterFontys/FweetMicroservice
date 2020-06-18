@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace FweetMicroservice.Entities
 {
+    [BsonIgnoreExtraElements]
     public class Fweet
     {
-        [Required] public Guid FweetId { get; set; }
-        [Required] public Guid UserId { get; set; }
-        [Required] public long Timestamp { get; set; }
-        [Required] public string FweetMessage { get; set; }
+        public Guid FweetId { get; set; }
+        public Guid UserId { get; set; }
+        public string Username { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string FweetMessage { get; set; }
+        public List<Like> Likes { get; set; }
     }
 }
